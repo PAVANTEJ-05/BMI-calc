@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IC Hello Starter</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <script type="module">
+    window.onload = () => {
+      const bmi = () => {
+        const height = document.querySelector("#h").value;
+        const weight = document.querySelector("#w").value;
+        const BMI = weight / (height / 100) ** 2;
+        const total = document.querySelector('#total');
+        const comment = document.querySelector("#comment");
+
+        if (!height || !weight || height <= 0 || weight <= 0) {
+          comment.innerHTML = "Please enter both height and weight.";
+          total.innerHTML = "";
+          return;
+        }
+
+        if (BMI < 10 || BMI > 80) {
+          comment.innerHTML = "Invalid!!, Please check your inputs.";
+          total.innerHTML = "";
+          return;
+        }
+
+        total.textContent = BMI.toFixed(2);
+
+        if (BMI < 18.5) {
+          comment.innerHTML = "You are underweight. Consider consulting a healthcare provider.";
+        } else if (BMI >= 18.5 && BMI < 24.9) {
+          comment.innerHTML = "You have a normal weight. Keep up the healthy lifestyle!";
+        } else if (BMI >= 25 && BMI < 29.9) {
+          comment.innerHTML = "You are overweight. It's advisable to watch your diet and exercise.";
+        } else if (BMI >= 30 && BMI < 39.9) {
+          comment.innerHTML = "You are in the obese range. Consider a healthcare consultation for advice.";
+        } else {
+          comment.innerHTML = "You are in the severely obese range. Please consult a healthcare provider.";
+        }
+      };
+
+      document.querySelector("#submit").addEventListener("click", bmi);
+    };
+  </script>
+
+  <div id="root">
+    <img src="/src/logo2.svg" alt="DFINITY logo" />
+    <div id="box">
+      <h1>BMI Calculator</h1>
+      <div id="form">
+        <form action="">
+          Height cm: <input id="h" type="number" min="0" placeholder="165"> <br>
+          Weight kg : <input id='w' type="number" placeholder="65" min="0">
+          <button type="button" id="submit">Calculate BMI</button>
+        </form>
+      </div>
+
+      <div>
+        <h3>Your BMI is: <span id="total"></span></h3>
+        <p id="comment"></p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
